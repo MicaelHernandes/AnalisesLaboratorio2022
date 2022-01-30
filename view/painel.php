@@ -19,6 +19,32 @@ require_once('../control/verifica_login.php');
     require_once('../view/nav_bar.php');
     require_once('../model/conexao.php');
     require_once('../model/lab_model.php');
+    if (isset($_SESSION['op_suc'])) {
+        ?>
+    
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Sucesso!</strong> "OP" foi cadastrada com sucesso!
+                <button type="button" class="close btn bnt-primary" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+    
+        <?php
+            unset($_SESSION['op_suc']);
+        }
+    if (isset($_SESSION['material_sucess'])) {
+    ?>
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Sucesso!</strong> Material foi cadastrado com sucesso!
+            <button type="button" class="close btn bnt-primary" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+    <?php
+        unset($_SESSION['material_sucess']);
+    }
 
     $ops = listaTudoOP($conexao);
     ?>
@@ -59,73 +85,36 @@ require_once('../control/verifica_login.php');
                             <td><?= $op['Maquina'] ?></td>
                             <td><button class="btn btn-success">Acessar</button>
                                 <?php if ($_SESSION['nivel'] == "00") { ?>
-                                    <form action="" method="post">
+                                    <td><form action="../view/update_op.php" method="post"><button class="btn btn-primary" value = "<?= $op['cod_op'] ?>" name="cod_op">Atualizar</button></form></td>
+                            </td>
                             <td>
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    (ADM)Atualizar
-                                </button>
+                                <form action="" method="post">
+                                    <!-- Botão para acionar modal -->
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalExemplo">
+                                        Apagar
+                                    </button>
 
-                                <!-- Modal -->
-                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">Atualizar Ordem de produção : <span class="text text-success"><?= $op['cod_op'] ?></span></h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Título do modal</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    ...
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                    <button type="button" class="btn btn-primary">Salvar mudanças</button>
+                                                </div>
                                             </div>
-                                            <div class="modal-body">
-                                                <form action="../control/atualiza_op.php" method="get">
-                                                    <div class="mb-3">
-                                                        <label for="recipient-name" class="col-form-label">Código</label>
-                                                        <input type="number" class="form-control" name="cod_op" id="recipient-name" readonly value="<?= $op['cod_op'] ?>">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="recipient-name" class="col-form-label">Lóte</label>
-                                                        <input type="text" class="form-control" id="recipient-name" value="<?= $op['Lote_op'] ?>" size="9" maxlength="9" required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="recipient-name" class="col-form-label">Material</label>
-                                                        <input type="text" class="form-control" id="recipient-name" value="<?= $op['codMaterial'] ?>" size="3" maxlength="3" required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="recipient-name" class="col-form-label">Máquina</label>
-                                                        <input type="text" class="form-control" id="recipient-name" value="<?= $op['Maquina'] ?>" size="2" maxlength="2" required>
-                                                    </div>
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                                    <input type="submit" value="Atualizar" class="btn btn-primary">
-                                                </form>
-
-                                            </div>
-
                                         </div>
                                     </div>
-                                </div>
                                 </form>
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    (ADM)Apagar
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">Apagar Ordem de produção!!</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Deseja realmente apagar a ordem de produção: <span class="text text-danger"> <?= $op['cod_op'] ?></span>
-                                                <p class="text text-danger">Esse processo não tem como ser revertido!! Tenha certeza de sua decisão!!!</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                                <button class="btn btn-danger">(ADM)Apagar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             <?php } ?>
                             </td>
                         </tr>

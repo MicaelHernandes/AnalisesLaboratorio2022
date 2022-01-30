@@ -1,7 +1,7 @@
 <!-- Começo do Menu -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Laboratorio</a>
+        <a class="navbar-brand" href="../view/painel.php">Laboratorio</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -26,7 +26,7 @@
                         <li><a class="dropdown-item" href="#">Análise</a></li>
                         <?php if ($_SESSION['nivel'] == "00") { ?>
                             <li><a class="dropdown-item" href="./cad_material.php">(ADM) "Material"</a></li>
-                            <li><a class="dropdown-item" href="#">(ADM) "OP"</a></li>
+                            <li><a class="dropdown-item" href="./cad_op.php">(ADM) "OP"</a></li>
                             <li><a class="dropdown-item" href="#">(ADM) Usuario</a></li>
                         <?php } ?>
                     </ul>

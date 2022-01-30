@@ -44,7 +44,7 @@
 
                 <div class="input-group mb-3">
                     <span class="input-group-text"><img src="./img/password.png" alt="password icon" width="15px"></span>
-                    <input class="form-control" id="password" name="password" placeholder="Senha" required>
+                    <input class="form-control" id="password" name="password" placeholder="Senha" required type="password">
                     <span class="input-group-text">
                         <img src="./img/olho.png" width="15px" alt="icon" id="togglePassword">
                     </span>
@@ -60,6 +60,3 @@
 
 
 
-<?php
-/*include_once('nav_bar.php');*/
-?>
